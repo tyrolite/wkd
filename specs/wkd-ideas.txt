@@ -1,0 +1,197 @@
+
+*** SELECTED (for my own research) ***
+
+high:
+* libX11 for window management
+* handle events using bubbling (similar to Harmonia)
+* Cairo for 2D vector graphics
+* get inspired from SDLs input system
+
+medium:
+* CTFE
+* attach/detach
+* widget hierarcy and names identical with the XUL 
+    counterparts(usefull for making a gui parser & code generator)
+
+low:
+* XUL as main mark-up language
+* Wayland support from the begining
+ 
+*** LINKS ***
+Ideas for a brand new widget toolkit(my thread):
+    http://forum.dlang.org/thread/tlpikltmamsfmqunndwm@forum.dlang.org
+Ideal D GUI Toolkit(Tyler JL):
+    http://forum.dlang.org/thread/vtaufckbpdkpuxyztyoi@forum.dlang.org
+
+Harmonia:
+    http://harmonia.terrainformatica.com/doku.php
+Hybrid:
+    http://h3.gd/code/hybrid/wiki/
+DGUI:
+    http://code.google.com/p/dgui/
+DFL:
+    http://wiki.dprogramming.com/Dfl/HomePage
+
+Linus Torvalds - Linux Times (2004-10-25)
+    http://web.archive.org/web/20050404020308/http://www.linuxtimes.net/modules.php?name=News&file=article&sid=145
+Distro with Wayland:
+    https://sourceforge.net/projects/rebeccablackos/
+
+A Concurrent Window System, Rob Pike:
+    http://swtch.com/~rsc/thread/cws.pdf
+
+Clutter (toolkit) - hardware-accelerated user interfaces
+ It also supports media playback using GStreamer and 2D graphics rendering using Cairo
+    http://en.wikipedia.org/wiki/Clutter_%28toolkit%29
+
+    
+
+*** MENTIONED ***
+
+Dicebot:
+* Any application that needs 
+    own rendering (any 3d, web browsers, custom widgets) does not 
+    make use of efficient X primitives - it just renders everything 
+    into buffer and provides it to server as a whole picture
+
+qznc:
+* Font rendering is often application specific and very
+    complex. This is why it is done client-side in X11 nowadays.
+
+    State of Text Rendering on Linux: http://behdad.org/text/
+
+Tyler Jameson Little:
+* I already opened this can of worms: 
+    http://forum.dlang.org/thread/vtaufckbpdkpuxyztyoi@forum.dlang.org
+* separating markup, style and code has 
+    worked out pretty well. QML uses this model pretty well, and I 
+    think we can do something pretty nice with D's awesome template 
+    support and CTFE.
+* simple, orthogonal, efficient
+* theme-able at runtime
+* simple event model
+* no XML
+* few abstractions (i.e. avoid Java-esque OO obsession)
+* direct frame buffer support (like qingy on Linux, but not sucky)
+* no GC (in an ideal world)
+  * I'm not a big fan of Phobos relying on the GC
+  * removes a barrier to writing bare-metal applications (only 
+have to implement a new backend, not the whole ecosystem)
+  * less expensive to link into a non-D project
+* CTFE
+* entire API accessable from C
+  * so I can reuse it in another language (i.e. Rust, Go, Python, 
+etc.)
+- simple buffer layering strategy, with bottom up and top-down 
+message passing
+* Chrome (like most apps) makes 
+    extensive use of x frame buffer. This is the way many apps are 
+    going, and that trend is not likely to change.
+* You may find this interesting: 
+http://tech.slashdot.org/story/13/04/03/1219239/remote-desktop-backend-merged-into-wayland
+
+* I would love attach/reattach for UIs. This seems like it would 
+have to be supported at the protocol level.
+
+John Joyus:
+* Let me propose a nice a name, RADD (simply pronounced as 'rad') stands 
+    for "Rapid Application Development with D"
+
+barryharris:
+* see Wayland:
+    http://wayland.freedesktop.org/
+* It's small and written in C. It also has a compositor component 
+    called Weston, again in C.
+
+Adam D. Ruppe:
+* I also want the ability to detach and 
+    reattach elsewhere, ala gnu screen.
+* There's a library called Xft that draws fonts prettier.
+* X doesn't support antialiasing
+* the X protocol does not compress the image data.
+* a class Sprite in addition 
+    to class Image, and why Qt has QImages and QPixmaps
+
+*   application -> display: draw the box
+    display -> application: key press event
+    application -> display: draw the character, advance the cursor
+* GNU Screen has 
+    pretty much pulled it off for unix terminal programs. GUIs have 
+    Remote Desktop and friends... rdp is amazing
+
+Joakim:
+*client-server GUI runtime that is as 
+    simple as possible on the client side.
+* all layout and GUI calculations 
+    are done on the server
+* I don't think X11 is well optimized, as I've found it laggy simply 
+    when running xterm or small GUI apps on a local wifi network with 
+    extremely low latency.
+* I wonder if offline is a niche worth serving these days however.
+
+kdmult:
+* a C++ GUI framework (BSD license) with good design and
+    native controls http://vcf-online.org/
+
+Russel Winder:
+* John Gall's observation from 1975:
+    "General systemantics, an essay on how systems work, and especially how
+    they fail...":
+
+       "A complex system that works is invariably found to have evolved
+       from a simple system that worked. A complex system designed from
+       scratch never works and cannot be patched up to make it work.
+       You have to start over, beginning with a working simple system."
+
+Gary Willoughby:
+* a D GUI toolkit that is available for all D supported platforms.
+
+captaindet:
+* documentation must be good from the very beginning
+* DFL was quite impressed (it even had a GUI designer!)
+
+Wyatt:
+* Hybrid had good potential
+    http://h3.gd/code/hybrid/wiki/index.php@n=Main.HomePage
+
+Suliman:
+* widget toolkits written in D have already been started, contribute to those: 
+    http://code.google.com/p/dgui/
+
+evilrat:
+* we need a truly D UI(not wrapper) first
+* there are almost no declarative cross platform(i mean major OS) toolkit for writing simple yet highly customizable UI's, with HTML markup-like, 
+customizable UI's without messing with imperative(C/C++/D/whatever) code
+
+eles:
+* a D-ported version of a rather anonymous toolkit won't be shaded by the original
+* evolution is slower, so not a fast-moving target
+* the team behind that toolkit will be more than glad to help, as their toolkit will gain in popularity, and could even be converted to D-development (instead of C or C++ or whatever)
+* re-write FOX tk in D, not to bind to it 
+* drivers as the lower bound in my original post. The rest should be drawn...
+
+Trvhgoy:
+* define the layout with a markup language like XAML or XUL for example and the styling with a CSS-like definition.
+
+Mike Parker:
+* Harmonia might be a good place to start: http://harmonia.terrainformatica.com/doku.php
+
+Chris:
+* a UI tool like Glade or Interface Builder is indispensible
+
+Jacob Carlborg:
+* You would still need to some graphics primitives. Do you want to implement them yourself as well? I mean, you have to draw the line somewhere. There's always a layer beneath you that you rely on, if you're not doing embedded or similar.
+* you want a non-native toolkit.
+* primitives would be implemented on top of OpenGL or DirectX. OpenGL is implemented in the graphics drivers, don't know how it works with DirectX.
+
+ME:
+* I think that porting an anonymous toolkit to D will do more harm than good because if the original project was lacking some features then clients will think that the ported version lacks them as well. If we want to take this route then, besides Harmonia and FOX tk, we might borrow things from FLTK(Fast Light Toolkit) 
+* If the projects starts from zero, with its own design and is "shiny new" then people will be more attracted.
+* Even if we don't port a toolkit we can still get inspired to see how they interact with the underlying system. For example, we can take a look over the SDL way of handling input.
+* for drawing primitives we can use Cairo(curently used by GTK) or libX11 on linux and Directx on windows.Bindings for cairo and libX11 are provided by Deimos. I'm not sure if we can use OpenGL because it requires a rendering window or it renders in fullscreen mode.That rendering window can be provided by other toolkits but I don't think we want to depend on them. The OS window manager(xorg on linux) needs to keep track of the things it draws on its root window or surface and must be aware what to clean-up after you close your program. So the layer beneath this widget toolkit on Linux would be X(libX11).
+* XAML is being developed by Microsoft and XUL by Mozzilla. I think XUL is a better choice for a markup language and more friendlier with an open source toolkit. It would be pretty nice if we can make the GuiParser and abstract class and provide an implementation for XUL because that will allow us to write an implementation for the QML(Qt) aswell or other flavors of layout and style files.
+* If we want the project to scale up nicely then we should do things by the book. That is doing some research to see what technologies are involved, what the client programmers want(this thread) and then write some specs. 
+* After we have the specs then we can start designing the toolkit using UML diagrams such that we will end up with a clean API and avoid future re-factoring. For UML designs, I recommend this web app https://www.draw.io/ which saves its files in XML format and we can store them in the git repository.
+* Only after we have a good design we will begin the actual coding.
+* there is this 3D modelling tool called Blender which has a modern-looking UI. People have been wondering if that GUI can be used as a library and the answer is no because the gui is harcoded into Blender. If our default ui look resembles that one(not necessarily identical) then we will gain more clients.Maybe we can even get support from its huge community of artists. Take a look: http://www.blender.org/features-gallery/features/
+* this toolkit can complement DWT because DWT will provide native look and this one will provide the same look on all platforms.
