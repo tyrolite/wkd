@@ -1,0 +1,22 @@
+{
+	"name": "cairo_x11",
+	"description": "research ...",
+	"copyright": "Copyright © 2014, tyrolite",
+	"authors": ["Paul Z. Barsan"],
+    "targetType": "executable",
+    "libs":[
+        "X11",
+        "cairo"
+     ],
+    "sourceFiles": ["cairo_x11.d"],
+	"dependencies": {
+		"x11": ">=1.0.1",
+		"cairod": {
+            "version": "~master",
+            "path": "/home/tyrolite/projects/cairoD"
+        }
+	},
+    "subConfigurations": {
+        "cairod": "xlib-support"
+    }
+}
